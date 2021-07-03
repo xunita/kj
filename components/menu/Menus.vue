@@ -177,10 +177,9 @@
       </div>
     </div>
     <div
+      v-show="!before"
       class="bg-black w-full h-full w-opaque opacity-60"
-      :class="{
-        invisible: !before,
-      }"
+      :class="{ '-z-1': before }"
       @click="close"
     ></div>
   </div>
@@ -238,7 +237,7 @@ export default {
   watch: {
     menu(nv, ov) {
       if (nv) {
-        this.bef = true
+        this.bef = false
       }
     },
   },
@@ -248,7 +247,7 @@ export default {
       if (this.bef_timeout !== null) clearTimeout(this.bef_timeout)
       this.$store.commit('set_menu', false)
       this.bef_timeout = setTimeout(() => {
-        this.bef = false
+        this.bef = true
       }, 150)
       this.timeout = setTimeout(() => {
         this.$store.commit('set_after_menu', true)
