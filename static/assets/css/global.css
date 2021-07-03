@@ -144,11 +144,11 @@ body {
 }
 .drawer.is-open-y {
   transform: translateY(0);
-  transition: transform ease-out 0.3s;
+  transition: transform ease-out 0.2s;
 }
 .drawer.is-hid-y {
   transform: translateY(-100%);
-  transition: transform ease-out 0.3s;
+  transition: transform ease-out 0.2s;
 }
 .text-lefts {
   text-align: left !important;

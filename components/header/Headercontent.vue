@@ -1,5 +1,5 @@
 <template>
-  <div class="z-10 w-full py-4 px-4.5 lg:px-8 bg-white">
+  <div class="z-10 w-full py-4 px-4.5 lg:px-8 bg-white tracking-widest">
     <p
       class="
         lg:absolute
@@ -83,7 +83,7 @@
                 current_lang.name
               }}</span>
             </a>
-            <div class="absolute -left-8 z-10">
+            <div class="absolute -left-9 z-10">
               <div
                 v-show="hov_lang"
                 class="
@@ -150,7 +150,7 @@
                   ></path>
                 </svg>
               </a>
-              <div class="absolute sm:-left-20 -left-30 z-10">
+              <div class="absolute sm:-left-22 -left-38 z-10">
                 <div
                   v-show="hov_acc"
                   class="
