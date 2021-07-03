@@ -1,7 +1,7 @@
 <template>
   <div class="flex relative h-full w-full">
     <div
-      id="menu-white raleway-font"
+      id="menu-white"
       class="
         min-w-94
         max-w-94
@@ -31,7 +31,7 @@
           ></path>
         </svg>
       </button>
-      <div class="p-5">
+      <div class="p-5 flex flex-col space-y-6">
         <div class="flex flex-col space-y-2">
           <nuxt-link
             v-for="(content, i) in best"
@@ -84,7 +84,7 @@
                 @click="open_mag"
               >
                 <svg
-                  class="w-6 h-6"
+                  class="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -106,7 +106,7 @@
                 @click="close_mag"
               >
                 <svg
-                  class="w-6 h-6"
+                  class="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -122,7 +122,7 @@
               </button>
             </div>
             <div
-              class="flex flex-col w-full drawer"
+              class="flex flex-col w-full"
               :class="{
                 'block appearY': shoping,
                 hidden: !shoping,
@@ -173,6 +173,60 @@
               content.name
             }}</span></nuxt-link
           >
+          <nuxt-link
+            v-for="(content, i) in other"
+            :key="i + 'ok'"
+            :to="content.url"
+            class="
+              button
+              outline-none
+              border-none
+              text-lefts
+              rounded-none
+              bg-red-50
+              p-5.5
+              w-full
+              text-sm
+              tracking-widest
+              hover:bg-gray-100
+            "
+            ><span class="whitespace-normal">{{
+              content.name
+            }}</span></nuxt-link
+          >
+        </div>
+        <div>
+          <div class="flex items-center space-x-3 tracking-widest">
+            <nuxt-link to="#" class="text-black">
+              <span class="raleway-font text-xs text-black"
+                >CREATE AN ACCOUNT</span
+              >
+            </nuxt-link>
+            <span>|</span>
+            <nuxt-link to="#" class="text-black">
+              <span class="raleway-font text-xs text-black">LOG IN</span>
+            </nuxt-link>
+          </div>
+        </div>
+        <div>
+          <div class="flex flex-col space-y-1 tracking-widest">
+            <nuxt-link to="#" class="text-black">
+              <span class="raleway-font text-xs text-black">ABOUT</span>
+            </nuxt-link>
+            <nuxt-link to="#" class="text-black">
+              <span class="raleway-font text-xs text-black">FAQ</span>
+            </nuxt-link>
+          </div>
+        </div>
+        <div v-for="(lan, i) in langs" :key="i + 'lang'">
+          <a class="flex items-center space-x-2 cursor-pointer">
+            <figure class="image is-24x24">
+              <img class="is-rounded is-24x24" :src="lan.image" />
+            </figure>
+            <span class="raleway-font text-xs text-black self-center">{{
+              lan.name
+            }}</span>
+          </a>
         </div>
       </div>
     </div>
@@ -185,9 +239,12 @@
 </template>
 
 <script>
+import { lang } from '@/lang/lang'
 export default {
   data() {
     return {
+      lang,
+      current_lang: null,
       timeout: null,
       bef_timeout: null,
       bef: true,
@@ -200,20 +257,40 @@ export default {
         { name: 'NEW TO KYLIE COSMETICS?', url: '#' },
       ],
       shops: [
-        { name: 'BEST SELLERS', url: '#' },
-        { name: 'NEW ARRIVALS', url: '#' },
-        { name: 'NEW TO KYLIE COSMETICS?', url: '#' },
-        { name: 'NEW TO KYLIE COSMETICS?', url: '#' },
-        { name: 'NEW TO KYLIE COSMETICS?', url: '#' },
-        { name: 'NEW TO KYLIE COSMETICS?', url: '#' },
-        { name: 'NEW TO KYLIE COSMETICS?', url: '#' },
-        { name: 'NEW TO KYLIE COSMETICS?', url: '#' },
-        { name: 'NEW TO KYLIE COSMETICS?', url: '#' },
-        { name: 'NEW TO KYLIE COSMETICS?', url: '#' },
+        { name: 'Douglas Cosmetics', url: '#' },
+        { name: 'Nocibé', url: '#' },
+        { name: 'Harrods', url: '#' },
+        { name: 'Selfridges', url: '#' },
+        { name: 'MECCA', url: '#' },
+        { name: 'Ulta Beauty', url: '#' },
+        { name: 'Nordstrom', url: '#' },
+        { name: 'Boots UK', url: '#' },
+        { name: 'Gold Apple', url: '#' },
+        { name: 'Shoppers Drug Mart', url: '#' },
+      ],
+      other: [
+        { name: 'BUNDLES & SETS', url: '#' },
+        { name: 'CLEANSERS & EXFOLIATORS', url: '#' },
+        { name: 'MOISTURIZERS', url: '#' },
+        { name: 'CLARIFYING', url: '#' },
+        { name: 'ROSE BATH', url: '#' },
+        { name: 'SERUMS & TREATMENTS', url: '#' },
+        { name: 'MASKS', url: '#' },
+        { name: 'BATH & BODY', url: '#' },
+        { name: 'LIP & EYE CARE', url: '#' },
+        { name: 'SUNSCREEN', url: '#' },
+        { name: 'ACCESSORIES', url: '#' },
+        { name: 'GIFT CARD', url: '#' },
+        { name: 'SHOP ALL', url: '#' },
       ],
     }
   },
   computed: {
+    langs() {
+      return this.current_lang !== null
+        ? this.lang.filter((lan) => lan.name !== this.current_lang.name)
+        : this.lang
+    },
     menu() {
       return this.$store.state.menu === true
     },
@@ -247,9 +324,11 @@ export default {
       this.$store.commit('set_menu', false)
       this.bef_timeout = setTimeout(() => {
         this.bef = true
+        document.getElementsByTagName('html')[0].style.overflow = 'visible'
       }, 150)
       this.timeout = setTimeout(() => {
         this.$store.commit('set_after_menu', true)
+        document.getElementsByTagName('html')[0].style.overflow = 'visible'
       }, 400)
     },
     open_mag() {

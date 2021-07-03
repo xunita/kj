@@ -48,7 +48,7 @@
             ></path>
           </svg>
         </a>
-        <a class="cursor-pointer p-1">
+        <a class="cursor-pointer p-0.5" @click="open_search">
           <svg
             class="w-6 h-6"
             fill="none"
@@ -227,39 +227,14 @@
 </template>
 
 <script>
+import { lang } from '@/lang/lang'
 export default {
   data() {
     return {
       langing: false,
       accounting: false,
       current_lang: null,
-      lang: [
-        {
-          url: '#',
-          name: 'U . S . A / $ U S',
-          image: '/assets/svg/icon-usa.svg',
-        },
-        {
-          url: '#',
-          name: 'U . K / £ G B P',
-          image: '/assets/svg/icon-uk.svg',
-        },
-        {
-          url: '#',
-          name: 'A U / $ A U D',
-          image: '/assets/svg/icon-au.svg',
-        },
-        {
-          url: '#',
-          name: 'F R / € E U R',
-          image: '/assets/svg/icon-fr.svg',
-        },
-        {
-          url: '#',
-          name: 'D E / € E U R',
-          image: '/assets/svg/icon-de.svg',
-        },
-      ],
+      lang,
     }
   },
   computed: {
@@ -286,6 +261,12 @@ export default {
     open_menu() {
       this.$store.commit('set_menu', true)
       this.$store.commit('set_after_menu', false)
+      document.getElementsByTagName('html')[0].style.overflow = 'hidden'
+    },
+    open_search() {
+      this.$store.commit('set_search', true)
+      this.$store.commit('set_after_search', false)
+      document.getElementsByTagName('html')[0].style.overflow = 'hidden'
     },
   },
 }

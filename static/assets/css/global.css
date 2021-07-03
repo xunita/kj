@@ -95,7 +95,8 @@ body {
 }
 @keyframes appearY {
   0% {
-    transform: translateY(-10px);
+    transform: translateY(-40px);
+    transition: transform ease-out 0.8s;
   }
 }
 .opacity {
@@ -120,11 +121,13 @@ body {
 @keyframes appearxl {
   0% {
     transform: translateX(-10px);
+    transition: transform ease-out 0.3s;
   }
 }
 @keyframes appearxr {
   0% {
     transform: translateX(10px);
+    transition: transform ease-out 0.3s;
   }
 }
 .drawer {
@@ -136,7 +139,7 @@ body {
   transition: transform ease-out 0.3s;
 }
 .drawer.is-hid {
-  transform: translateX(-376px);
+  transform: translateX(-100%);
   transition: transform ease-out 0.3s;
 }
 .drawer.is-open-y {
@@ -144,7 +147,7 @@ body {
   transition: transform ease-out 0.3s;
 }
 .drawer.is-hid-y {
-  transform: translateY(100%);
+  transform: translateY(-100%);
   transition: transform ease-out 0.3s;
 }
 .text-lefts {
