@@ -179,7 +179,6 @@
     <div
       v-show="!before"
       class="bg-black w-full h-full w-opaque opacity-60"
-      :class="{ '-z-1': before }"
       @click="close"
     ></div>
   </div>
