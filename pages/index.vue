@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-show="loaded">
     <!-- on top of apps (fixed elements) -->
     <!-- menu -->
     <div
@@ -47,6 +47,9 @@ export default {
     scroll() {
       return this.$store.state.scroll
     },
+    loaded() {
+      return this.$store.state.domloading === false
+    },
     old_scroll() {
       return this.$store.state.old_scroll
     },
@@ -65,9 +68,18 @@ export default {
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('DOMContentLoaded', this.domload, false)
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('DOMContentLoaded', this.domload, false)
+  },
+  mounted() {
+    if (document.readyState !== 'loading') {
+      this.domload()
+    } else {
+      window.addEventListener('DOMContentLoaded', this.domload, false)
+    }
   },
   methods: {
     handleScroll() {
@@ -78,6 +90,9 @@ export default {
 
       this.$store.commit('set_old_scroll', this.scroll)
       this.$store.commit('set_scroll', scroll)
+    },
+    domload() {
+      this.$store.commit('set_domload', false)
     },
     close() {
       this.$store.commit('set_menu', false)

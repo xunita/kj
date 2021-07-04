@@ -5,9 +5,13 @@ export const state = () => ({
   search: false,
   after_menu: true,
   after_search: true,
+  domloading: true,
 })
 
 export const mutations = {
+  set_domload(state, value) {
+    state.domloading = value
+  },
   set_scroll(state, value) {
     state.scroll = value
   },
