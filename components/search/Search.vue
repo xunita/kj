@@ -1,7 +1,7 @@
 <template>
   <div
     id="search-white"
-    class="drawer fixed h-full w-full bg-white z-50"
+    class="drawer fixed h-full w-full bg-white"
     :class="{ 'is-open-y': search, 'is-hid-y': !search }"
   >
     <button class="p-1 mt-2 ml-4" @click="close">
@@ -71,7 +71,7 @@
           </button>
         </div>
         <div
-          v-show="focused"
+          v-show="focused || query !== ''"
           class="
             w-full
             h-200
@@ -91,8 +91,6 @@
 export default {
   data() {
     return {
-      timeout: null,
-      bef_timeout: null,
       query: '',
       focus: true,
     }
@@ -121,18 +119,9 @@ export default {
       this.$refs.search.focus()
     },
     close() {
-      if (this.timeout !== null) clearTimeout(this.timeout)
-      if (this.bef_timeout !== null) clearTimeout(this.bef_timeout)
       this.$store.commit('set_search', false)
       this.focus = false
-      this.bef_timeout = setTimeout(() => {
-        this.bef = true
-        document.getElementsByTagName('html')[0].style.overflow = 'visible'
-      }, 150)
-      this.timeout = setTimeout(() => {
-        this.$store.commit('set_after_search', true)
-        document.getElementsByTagName('html')[0].style.overflow = 'visible'
-      }, 200)
+      document.getElementsByTagName('html')[0].style.overflow = 'visible'
     },
   },
 }

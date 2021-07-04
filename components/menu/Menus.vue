@@ -245,7 +245,6 @@ export default {
     return {
       lang,
       current_lang: null,
-      timeout: null,
       bef_timeout: null,
       bef: true,
       plus: false,
@@ -319,17 +318,12 @@ export default {
   },
   methods: {
     close() {
-      if (this.timeout !== null) clearTimeout(this.timeout)
       if (this.bef_timeout !== null) clearTimeout(this.bef_timeout)
       this.$store.commit('set_menu', false)
       this.bef_timeout = setTimeout(() => {
         this.bef = true
         document.getElementsByTagName('html')[0].style.overflow = 'visible'
       }, 150)
-      this.timeout = setTimeout(() => {
-        this.$store.commit('set_after_menu', true)
-        document.getElementsByTagName('html')[0].style.overflow = 'visible'
-      }, 400)
     },
     open_mag() {
       this.mag = true

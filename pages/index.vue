@@ -6,7 +6,7 @@
       id="menu"
       class="sm:fixed absolute z-50 top-0 left-0 right-0 bottom-0"
       :class="{
-        'invisible pointer-events-none': after_menu,
+        'pointer-events-none': !menu,
       }"
     >
       <menus></menus>
@@ -14,22 +14,22 @@
     <!-- search -->
     <div
       id="search"
-      class="sm:fixed absolute z-50 top-0 left-0 right-0 bottom-0"
+      class="fixed z-50 top-0 left-0 right-0 bottom-0"
       :class="{
-        'invisible pointer-events-none': after_search,
+        'pointer-events-none': !search,
       }"
     >
       <search></search>
     </div>
     <!-- headers -->
-    <div :class="{ 'sticky top-0 z-10 appearY': scroll < old_scroll }">
+    <div
+      v-show="scroll < old_scroll || scroll === 0"
+      class="sticky top-0 z-10 appearY"
+    >
       <tophead></tophead>
       <saleoff></saleoff>
-      <headers
-        :class="{ hidden: scroll >= old_scroll, block: scroll < old_scroll }"
-      ></headers>
     </div>
-    <headers :class="{ hidden: scroll < old_scroll }"></headers>
+    <headers></headers>
     <!-- child -->
     <div>
       <nuxt-child />
@@ -55,6 +55,9 @@ export default {
     },
     menu() {
       return this.$store.state.menu === true
+    },
+    search() {
+      return this.$store.state.search === true
     },
     after_menu() {
       return this.$store.state.after_menu === true
