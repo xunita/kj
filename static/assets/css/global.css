@@ -6,7 +6,7 @@ body {
   background-color: #f3cfd7;
 }
 .text-rose {
-  color: #e7b2c0;
+  color: #e7b2c0 !important;
 }
 .josefin-font {
   font-family: 'Josefin Sans', sans-serif;
@@ -51,6 +51,14 @@ body {
 }
 .m-0-auto {
   margin: 0 auto !important;
+}
+.bg-gray-100s > * {
+  --tw-bg-opacity: 1;
+  background-color: rgba(254, 242, 242, var(--tw-bg-opacity));
+}
+.bg-gray-100s:hover > * {
+  --tw-bg-opacity: 1;
+  background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
 }
 .w-fit {
   width: intrinsic !important; /* Safari/WebKit utilisent un nom non-standard */
@@ -102,9 +110,18 @@ body {
 .opacity {
   animation: 0.2s opacity;
 }
+.opacity-t {
+  animation: 0.8s opacityt;
+  transition: transform ease-out 0.8s;
+}
 @keyframes opacity {
   0% {
     opacity: 0;
+  }
+}
+@keyframes opacityt {
+  0% {
+    opacity: 0.6;
   }
 }
 .centered-element {
