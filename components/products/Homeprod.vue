@@ -52,7 +52,7 @@
         flex
         tracking-widest
         h-8
-        lg:w-2/3
+        lg:w-2/4
         md:w-3/4
         sm:w-4/5
         w-full
