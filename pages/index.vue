@@ -24,7 +24,7 @@
     <!-- headers -->
     <div
       v-show="scroll < old_scroll || scroll === 0"
-      class="sticky top-0 z-10 appearY"
+      class="z-10"
     >
       <tophead></tophead>
       <saleoff></saleoff>
