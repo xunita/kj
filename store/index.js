@@ -6,6 +6,7 @@ export const state = () => ({
   after_menu: true,
   after_search: true,
   domloading: true,
+  fav: false,
 })
 
 export const mutations = {
@@ -14,6 +15,9 @@ export const mutations = {
   },
   set_scroll(state, value) {
     state.scroll = value
+  },
+  set_favorite(state, value) {
+    state.fav = value
   },
   set_menu(state, value) {
     state.menu = value

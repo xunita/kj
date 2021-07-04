@@ -39,6 +39,7 @@ export default {
     return {
       prods: [
         {
+          id: 1,
           url: '#',
           price: 36,
           devise: '$',
@@ -50,6 +51,7 @@ export default {
           pic2: '/assets/images/banner/KS_CBW_21_Model_WS_10_360x.jpg',
         },
         {
+          id: 2,
           url: '#',
           price: 29,
           devise: '$',
@@ -61,6 +63,7 @@ export default {
           pic2: '/assets/images/banner/KS_RBL_21_Model_WS_11_360x.jpg',
         },
         {
+          id: 3,
           url: '#',
           price: 66,
           devise: '$',

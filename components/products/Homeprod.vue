@@ -1,5 +1,68 @@
 <template>
-  <div>
+  <div class="relative">
+    <etiquette
+      class="absolute top-2 right-4 z-1"
+      @mouseenter.native="hover = true"
+      @mouseleave.native="hover = false"
+    ></etiquette>
+    <button
+      v-show="!favorited"
+      class="
+        absolute
+        z-1
+        focus:border focus:border-black
+        text-gray-500
+        hover:text-gray-600
+        top-2
+        left-4
+      "
+      @mouseenter="hover = true"
+      @mouseleave="hover = false"
+      @click="manage_fav"
+    >
+      <svg
+        class="w-7 h-7"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+        ></path>
+      </svg>
+    </button>
+    <button
+      v-show="favorited"
+      class="
+        absolute
+        z-1
+        focus:border focus:border-black
+        text-gray-500
+        hover:text-gray-600
+        top-2
+        left-4
+      "
+      @mouseenter="hover = true"
+      @mouseleave="hover = false"
+      @click="manage_fav"
+    >
+      <svg
+        class="w-7 h-7"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </button>
     <nuxt-link v-if="prod !== null" :to="prod.url">
       <figure
         class="image is-square relative"
@@ -8,23 +71,6 @@
       >
         <img v-show="hovered" class="opacity-t" :src="prod.pic2" />
         <img v-show="!hovered" class="opacity-t" :src="prod.pic1" />
-        <etiquette class="absolute top-2 right-2"></etiquette>
-        <button class="bg-transparent">
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-            ></path>
-          </svg>
-        </button>
       </figure>
       <p class="text-sm raleway-font flex justify-center py-3">
         <span class="flex flex-col space-y-3"
@@ -138,6 +184,7 @@
 </template>
 
 <script>
+import { cookies } from '@/cookies/cookies'
 import Etiquette from '../etiquette/Etiquette.vue'
 export default {
   components: { Etiquette },
@@ -150,12 +197,17 @@ export default {
   data() {
     return {
       nb: 1,
+      cookies,
       hover: false,
+      fav: false,
     }
   },
   computed: {
     hovered() {
       return this.hover === true
+    },
+    favorited() {
+      return this.fav === true
     },
   },
   watch: {
@@ -163,6 +215,44 @@ export default {
       if (!isNaN(nv) && +nv >= 0) {
         this.nb = +nv !== 0 ? Math.ceil(nv) : ''
       } else this.nb = ov
+    },
+  },
+  mounted() {
+    this.check_fav()
+  },
+  updated() {
+    this.check_fav()
+  },
+  methods: {
+    check_fav() {
+      let fav = []
+      if (this.cookies.checkCookie('fav')) {
+        const cookie = this.cookies.getCookie('fav')
+        fav = JSON.parse(cookie)
+        if (fav.some((el) => el.id === this.prod.id)) {
+          this.fav = true
+        } else {
+          this.fav = false
+        }
+      }
+    },
+    manage_fav() {
+      let fav = []
+      if (this.cookies.checkCookie('fav')) {
+        const cookie = this.cookies.getCookie('fav')
+        fav = JSON.parse(cookie)
+        if (!fav.some((el) => el.id === this.prod.id)) {
+          fav.push(this.prod)
+          this.cookies.setCookie('fav', fav, 365)
+        } else {
+          fav = fav.filter((el) => el.id !== this.prod.id)
+          this.cookies.setCookie('fav', fav, 365)
+        }
+      } else {
+        fav.push(this.prod)
+        this.cookies.setCookie('fav', fav, 365)
+      }
+      this.$store.commit('set_favorite', true)
     },
   },
 }

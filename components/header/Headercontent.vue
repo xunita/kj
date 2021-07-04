@@ -204,7 +204,7 @@
                   ></path>
                 </svg>
               </a>
-              <span class="count">0</span>
+              <span class="count">{{ favorites }}</span>
             </div>
             <div class="relative">
               <a class="cursor-pointer">
@@ -223,7 +223,7 @@
                   ></path>
                 </svg>
               </a>
-              <span class="count">0</span>
+              <span class="count">{{ carting }}</span>
             </div>
           </div>
         </div>
@@ -233,6 +233,7 @@
 </template>
 
 <script>
+import { cookies } from '@/cookies/cookies'
 import { lang } from '@/lang/lang'
 export default {
   data() {
@@ -240,12 +241,24 @@ export default {
       langing: false,
       accounting: false,
       current_lang: null,
+      cookies,
       lang,
+      fav: 0,
+      cart: 0,
     }
   },
   computed: {
     hov_lang() {
       return this.langing === true
+    },
+    favorites() {
+      return this.fav
+    },
+    carting() {
+      return this.cart
+    },
+    mefav() {
+      return this.$store.state.fav
     },
     langs() {
       return this.current_lang !== null
@@ -256,10 +269,27 @@ export default {
       return this.accounting === true
     },
   },
+  watch: {
+    mefav(nv, ov) {
+      if (nv) this.check_fav()
+    },
+  },
   created() {
     this.current_lang = this.lang[0]
   },
+  mounted() {
+    this.check_fav()
+  },
   methods: {
+    check_fav() {
+      let fav = []
+      if (this.cookies.checkCookie('fav')) {
+        const cookie = this.cookies.getCookie('fav')
+        fav = JSON.parse(cookie)
+      }
+      this.fav = fav.length
+      this.$store.commit('set_favorite', false)
+    },
     set_lang(val) {
       this.current_lang = val
       this.langing = false
