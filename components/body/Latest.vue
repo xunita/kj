@@ -37,8 +37,6 @@ export default {
   },
   data() {
     return {
-      hover1: false,
-      hover2: false,
       prods: [
         {
           url: '#',
@@ -75,14 +73,6 @@ export default {
         },
       ],
     }
-  },
-  computed: {
-    h1() {
-      return this.hover1 === true
-    },
-    h2() {
-      return this.hover2 === true
-    },
   },
 }
 </script>

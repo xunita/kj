@@ -15,7 +15,10 @@
       "
       :class="{ 'is-open': menu, 'is-hid': !menu }"
     >
-      <button class="p-1 mt-2 ml-2" @click="close">
+      <button
+        class="p-1 mt-2 ml-2 focus:border focus:border-black"
+        @click="close"
+      >
         <svg
           class="w-6 h-6"
           fill="none"
@@ -292,9 +295,6 @@ export default {
     },
     menu() {
       return this.$store.state.menu === true
-    },
-    after_menu() {
-      return this.$store.state.after_menu === true
     },
     before() {
       return this.bef === true

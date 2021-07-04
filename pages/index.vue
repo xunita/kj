@@ -44,14 +44,8 @@ import Search from '~/components/search/Search.vue'
 export default {
   components: { Headers, Tophead, Saleoff, Menus, Search },
   computed: {
-    scroll() {
-      return this.$store.state.scroll
-    },
     loaded() {
       return this.$store.state.domloading === false
-    },
-    old_scroll() {
-      return this.$store.state.old_scroll
     },
     menu() {
       return this.$store.state.menu === true
@@ -59,19 +53,11 @@ export default {
     search() {
       return this.$store.state.search === true
     },
-    after_menu() {
-      return this.$store.state.after_menu === true
-    },
-    after_search() {
-      return this.$store.state.after_search === true
-    },
   },
   beforeMount() {
-    window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('DOMContentLoaded', this.domload, false)
   },
   beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll)
     window.removeEventListener('DOMContentLoaded', this.domload, false)
   },
   mounted() {
@@ -82,20 +68,8 @@ export default {
     }
   },
   methods: {
-    handleScroll() {
-      const scroll =
-        Math.abs(window.scrollY) ||
-        Math.abs(window.scrollTop) ||
-        Math.abs(document.getElementsByTagName('html')[0].scrollTop)
-
-      this.$store.commit('set_old_scroll', this.scroll)
-      this.$store.commit('set_scroll', scroll)
-    },
     domload() {
       this.$store.commit('set_domload', false)
-    },
-    close() {
-      this.$store.commit('set_menu', false)
     },
   },
 }

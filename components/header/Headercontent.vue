@@ -32,7 +32,10 @@
     </p>
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-5">
-        <a class="cursor-pointer p-0.5" @click="open_menu">
+        <button
+          class="cursor-pointer p-0.5 focus:border focus:border-black"
+          @click="open_menu"
+        >
           <svg
             class="w-6 h-6"
             fill="none"
@@ -47,8 +50,11 @@
               d="M4 6h16M4 12h16M4 18h16"
             ></path>
           </svg>
-        </a>
-        <a class="cursor-pointer p-0.5" @click="open_search">
+        </button>
+        <button
+          class="cursor-pointer p-0.5 focus:border focus:border-black"
+          @click="open_search"
+        >
           <svg
             class="w-6 h-6"
             fill="none"
@@ -63,7 +69,7 @@
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             ></path>
           </svg>
-        </a>
+        </button>
       </div>
       <div>
         <div class="flex items-center space-x-10">
@@ -260,12 +266,10 @@ export default {
     },
     open_menu() {
       this.$store.commit('set_menu', true)
-      this.$store.commit('set_after_menu', false)
       document.getElementsByTagName('html')[0].style.overflow = 'hidden'
     },
     open_search() {
       this.$store.commit('set_search', true)
-      this.$store.commit('set_after_search', false)
       document.getElementsByTagName('html')[0].style.overflow = 'hidden'
     },
   },
