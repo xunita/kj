@@ -312,11 +312,18 @@ export default {
   watch: {
     menu(nv, ov) {
       if (nv) {
+        this.scrolltop()
         this.bef = false
       }
     },
   },
   methods: {
+    scrolltop() {
+      document.getElementById('menu-white').scroll({
+        top: 0,
+        left: 0,
+      })
+    },
     close() {
       if (this.bef_timeout !== null) clearTimeout(this.bef_timeout)
       this.$store.commit('set_menu', false)
