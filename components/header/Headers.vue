@@ -1,7 +1,5 @@
 <template>
-  <headercontent
-    :class="{ 'sticky top-0': scroll > old_scroll }"
-  ></headercontent>
+  <headercontent class="sticky top-0"></headercontent>
 </template>
 
 <script>
