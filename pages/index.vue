@@ -22,10 +22,7 @@
       <search></search>
     </div>
     <!-- headers -->
-    <div
-      v-show="scroll < old_scroll || scroll === 0"
-      class="z-10"
-    >
+    <div class="z-10">
       <tophead></tophead>
       <saleoff></saleoff>
     </div>
