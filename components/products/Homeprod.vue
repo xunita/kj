@@ -233,7 +233,7 @@ export default {
       if (this.cookies.checkCookie('fav')) {
         const cookie = this.cookies.getCookie('fav')
         fav = JSON.parse(cookie)
-        if (fav.includes(this.prod.id)) {
+        if (fav.some((el) => el.id === this.prod.id)) {
           this.fav = true
         } else {
           this.fav = false
@@ -245,15 +245,15 @@ export default {
       if (this.cookies.checkCookie('fav')) {
         const cookie = this.cookies.getCookie('fav')
         fav = JSON.parse(cookie)
-        if (!fav.includes(this.prod.id)) {
-          fav.push(this.prod.id)
+        if (!fav.some((el) => el.id === this.prod.id)) {
+          fav.push(this.prod)
           this.cookies.setCookie('fav', fav, 365)
         } else {
-          fav = fav.filter((el) => el !== this.prod.id)
+          fav = fav.filter((el) => el.id !== this.prod.id)
           this.cookies.setCookie('fav', fav, 365)
         }
       } else {
-        fav.push(this.prod.id)
+        fav.push(this.prod)
         this.cookies.setCookie('fav', fav, 365)
       }
       this.$store.commit('set_favorite', true)
