@@ -188,7 +188,7 @@
               </div>
             </div>
             <div class="relative">
-              <a class="cursor-pointer">
+              <nuxt-link to="#">
                 <svg
                   class="w-6 h-6"
                   fill="none"
@@ -203,11 +203,11 @@
                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                   ></path>
                 </svg>
-              </a>
-              <span class="count">{{ favorites }}</span>
+                <span class="count">{{ favorites }}</span>
+              </nuxt-link>
             </div>
             <div class="relative">
-              <a class="cursor-pointer">
+              <nuxt-link to="#">
                 <svg
                   class="w-6 h-6"
                   fill="none"
@@ -222,8 +222,8 @@
                     d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                   ></path>
                 </svg>
-              </a>
-              <span class="count">{{ carting }}</span>
+                <span class="count">{{ carting }}</span>
+              </nuxt-link>
             </div>
           </div>
         </div>
@@ -260,6 +260,9 @@ export default {
     mefav() {
       return this.$store.state.fav
     },
+    mecart() {
+      return this.$store.state.cart
+    },
     langs() {
       return this.current_lang !== null
         ? this.lang.filter((lan) => lan.name !== this.current_lang.name)
@@ -273,12 +276,16 @@ export default {
     mefav(nv, ov) {
       if (nv) this.check_fav()
     },
+    mecart(nv, ov) {
+      if (nv) this.check_cart()
+    },
   },
   created() {
     this.current_lang = this.lang[0]
   },
   mounted() {
     this.check_fav()
+    this.check_cart()
   },
   methods: {
     check_fav() {
@@ -289,6 +296,16 @@ export default {
       }
       this.fav = fav.length
       this.$store.commit('set_favorite', false)
+    },
+    check_cart() {
+      let cart = []
+      this.cart = 0
+      if (this.cookies.checkCookie('cart')) {
+        const cookie = this.cookies.getCookie('cart')
+        cart = JSON.parse(cookie)
+        cart.forEach((el) => (this.cart += el.qty))
+      }
+      this.$store.commit('set_cart', false)
     },
     set_lang(val) {
       this.current_lang = val

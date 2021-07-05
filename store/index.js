@@ -7,6 +7,7 @@ export const state = () => ({
   after_search: true,
   domloading: true,
   fav: false,
+  cart: false,
 })
 
 export const mutations = {
@@ -18,6 +19,9 @@ export const mutations = {
   },
   set_favorite(state, value) {
     state.fav = value
+  },
+  set_cart(state, value) {
+    state.cart = value
   },
   set_menu(state, value) {
     state.menu = value
