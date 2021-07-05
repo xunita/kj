@@ -2,7 +2,7 @@
   <div class="z-10 w-full py-4 px-4.5 lg:px-8 bg-white tracking-widest">
     <p
       class="
-        lg:absolute
+        md:absolute
         relative
         flex
         justify-center
@@ -74,7 +74,7 @@
       <div>
         <div class="flex items-center space-x-10">
           <div
-            class="sm:block hidden relative"
+            class="relative lang"
             @mouseover="langing = true"
             @mouseleave="langing = false"
           >
@@ -89,9 +89,8 @@
                 current_lang.name
               }}</span>
             </a>
-            <div class="absolute -left-9 z-10">
+            <div v-show="hov_lang" class="absolute -left-9 z-10">
               <div
-                v-show="hov_lang"
                 class="
                   shadow-lg
                   py-5
@@ -129,20 +128,13 @@
               @mouseover="accounting = true"
               @mouseleave="accounting = false"
             >
-              <a class="cursor-pointer">
+              <a class="cursor-pointer flex items-center">
                 <span
-                  class="
-                    raleway-font
-                    sm:block
-                    hidden
-                    font-12px
-                    self-center
-                    text-black
-                  "
+                  class="raleway-font my-acc font-12px self-center text-black"
                   >MY ACCOUNT</span
                 >
                 <svg
-                  class="w-6 h-6 sm:hidden block"
+                  class="w-6 h-6 hidden svg-my-acc"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -322,3 +314,18 @@ export default {
   },
 }
 </script>
+<style scoped>
+@media screen and (max-width: 1124px) {
+  .lang {
+    display: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .my-acc {
+    display: none;
+  }
+  .svg-my-acc {
+    display: block;
+  }
+}
+</style>
