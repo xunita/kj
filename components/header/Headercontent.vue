@@ -148,7 +148,7 @@
                   ></path>
                 </svg>
               </a>
-              <div class="absolute sm:-left-22 -left-38 z-10">
+              <div class="absolute -left-38 z-10">
                 <div
                   v-show="hov_acc"
                   class="
@@ -320,7 +320,7 @@ export default {
     display: none;
   }
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 820px) {
   .my-acc {
     display: none;
   }
