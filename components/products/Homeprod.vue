@@ -45,8 +45,8 @@
           focus:border focus:border-black
           text-gray-500
           hover:text-gray-600
-          top-2
-          left-4
+          sm:left-4
+          left-2
         "
         @mouseenter="hover = true"
         @mouseleave="hover = false"

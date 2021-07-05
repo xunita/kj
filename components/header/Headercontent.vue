@@ -164,13 +164,13 @@
                   "
                 >
                   <div class="flex items-center space-x-3">
-                    <nuxt-link to="#" class="text-black">
+                    <nuxt-link to="/login" class="text-black">
                       <span class="raleway-font text-xs text-black"
                         >CREATE AN ACCOUNT</span
                       >
                     </nuxt-link>
                     <span>|</span>
-                    <nuxt-link to="#" class="text-black">
+                    <nuxt-link to="/login" class="text-black">
                       <span class="raleway-font text-xs text-black"
                         >LOG IN</span
                       >

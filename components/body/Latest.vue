@@ -18,9 +18,9 @@
         Shop Kylie cosmetic's newest and best-selling products!
       </h4>
     </div>
-    <div class="flex d-half pt-8 pb-10">
+    <div v-if="products !== null" class="flex d-half pt-8 pb-10">
       <homeprod
-        v-for="(prod, i) in prods"
+        v-for="(prod, i) in products"
         :key="i + 'prods'"
         :prod="prod"
         class="column tracking-widest is-halfs md:p-0 sm:p-4.5 p-2.1 text-black"
@@ -37,44 +37,17 @@ export default {
   },
   data() {
     return {
-      prods: [
-        {
-          id: 1,
-          url: '#',
-          price: 36,
-          devise: '$',
-          discount: 0.25,
-          rate: 4,
-          raters: 450,
-          name: 'COCONUT BODY WASH',
-          pic1: '/assets/images/banner/KS_CBW_21_Open_WS_01_360x.jpg',
-          pic2: '/assets/images/banner/KS_CBW_21_Model_WS_10_360x.jpg',
-        },
-        {
-          id: 2,
-          url: '#',
-          price: 29,
-          devise: '$',
-          discount: 0.2,
-          rate: 3.5,
-          raters: 588,
-          name: 'ROSE BODY LOTION',
-          pic1: '/assets/images/banner/KS_RBL_21_Closed_WS_01_360x.jpg',
-          pic2: '/assets/images/banner/KS_RBL_21_Model_WS_11_360x.jpg',
-        },
-        {
-          id: 3,
-          url: '#',
-          price: 66,
-          devise: '$',
-          discount: 0.3,
-          rate: 5,
-          raters: 803,
-          name: 'COCONUT BODY WASH + ROSE BODY LOTION',
-          pic1: '/assets/images/banner/KS_CBW_RBL_21_Closed_WS_01_360x.jpg',
-          pic2: '/assets/images/banner/KS_MULTI_21_RoseBodLotionCocoBodWash_WS_01_360x.jpg',
-        },
-      ],
+      products: null,
+      err: null,
+    }
+  },
+  async fetch() {
+    try {
+      const products = await this.$axios.$get('products/all')
+      // eslint-disable-next-line no-extra-boolean-cast
+      if (!!products.length) this.products = products
+    } catch (error) {
+      this.err = error
     }
   },
 }
