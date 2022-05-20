@@ -2,6 +2,10 @@
 
 Kylie Jenner cosmetic website homepage essai
 
+# demo site
+
+[Demo here](https://kcshops.netlify.app/#).
+
 ## Build Setup
 
 ```bash
